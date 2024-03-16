@@ -1,6 +1,6 @@
 import { Card, Spin, Image, Typography } from "antd";
 import { getTop10BusinessNews } from "./apis";
-import mockData from "mock.json";
+import mockData from "./mock.json";
 import { useRequest } from "ahooks";
 const { Meta } = Card;
 const News = () => {
