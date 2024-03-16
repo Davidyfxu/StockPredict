@@ -1,10 +1,13 @@
 import { Card, Spin, Image, Typography } from "antd";
 import { getTop10BusinessNews } from "./apis";
+import mockData from "mock.json";
 import { useRequest } from "ahooks";
 const { Meta } = Card;
 const News = () => {
   const { data, error, loading } = useRequest(getTop10BusinessNews);
-  const cards = (data?.articles || []).filter((a) => a?.urlToImage);
+  const cards = (data?.articles || mockData.articles).filter(
+    (a) => a?.urlToImage,
+  );
   return loading ? (
     <Spin></Spin>
   ) : (
