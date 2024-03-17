@@ -34,6 +34,17 @@ const Stocks = () => {
         `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${equity}&apikey=330NAY2DUDMV67W2`,
       );
       setData(
+        Object.keys(res["Time Series (Daily)"])
+          .map((k) => ({
+            name: "close",
+            date: k,
+            price: Number(res["Time Series (Daily)"][k]["4. close"]),
+          }))
+          .sort((a, b) => new Date(a.date) - new Date(b.date)),
+      );
+    } catch (e) {
+      console.error("searchStockPrice", e);
+      setData(
         Object.keys(mockData["Time Series (Daily)"])
           .map((k) => ({
             name: "close",
@@ -42,8 +53,6 @@ const Stocks = () => {
           }))
           .sort((a, b) => new Date(a.date) - new Date(b.date)),
       );
-    } catch (e) {
-      console.error("searchStockPrice", e);
     } finally {
       setLoading(false);
     }
@@ -51,7 +60,7 @@ const Stocks = () => {
 
   useEffect(() => {
     void asyncFetch();
-  }, []);
+  }, [equity]);
 
   const config = {
     title: {
