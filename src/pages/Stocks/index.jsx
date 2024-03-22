@@ -23,10 +23,10 @@ const Stocks = () => {
     setIsModalOpen(false);
   };
 
-  const getPrediction = (values: number[] = []) =>
+  const getPrediction = (values = []) =>
     round(sum(values) / values.length + Math.random(), 2);
 
-  const onSearch = (value: string) => setEquity(value);
+  const onSearch = (value) => setEquity(value);
   const asyncFetch = async () => {
     try {
       setLoading(true);
@@ -58,30 +58,49 @@ const Stocks = () => {
     }
   };
 
-  useEffect(() => {
-    void asyncFetch();
-  }, [equity]);
+  // useEffect(() => {
+  //   void asyncFetch();
+  // }, [equity]);
+
+  // const config = {
+  //   title: {
+  //     visible: true,
+  //     text: "The Stock Price",
+  //   },
+  //   padding: "auto",
+  //   forceFit: true,
+  //   data,
+  //   xField: "date",
+  //   yField: "price",
+  //   legend: equity,
+  //   xAxis: { type: "date" },
+  //   yAxis: {
+  //     label: {
+  //       formatter: (v) =>
+  //         `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
+  //     },
+  //   },
+  //   responsive: true,
+  // };
+  const fakeData = [
+    { year: "1991", value: 3 },
+    { year: "1992", value: 4 },
+    { year: "1993", value: 3.5 },
+    { year: "1994", value: 5 },
+    { year: "1995", value: 4.9 },
+    { year: "1996", value: 6 },
+    { year: "1997", value: 7 },
+    { year: "1998", value: 9 },
+    { year: "1999", value: 13 },
+  ];
 
   const config = {
-    title: {
-      visible: true,
-      text: "The Stock Price",
-    },
-    padding: "auto",
-    forceFit: true,
-    data,
-    xField: "date",
-    yField: "price",
-    legend: equity,
-    xAxis: { type: "date" },
-    yAxis: {
-      label: {
-        formatter: (v) =>
-          `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
-      },
-    },
-    responsive: true,
+    data: fakeData,
+    height: 400,
+    xField: "year",
+    yField: "value",
   };
+
   return (
     <div>
       <Typography.Title>
